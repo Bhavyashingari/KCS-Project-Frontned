@@ -1,5 +1,6 @@
 import React from "react";
-import kcs_logo from '../../assets/kcs_logo.jpg';
+// import kcs_logo from '../../assets/kcs_logo.jpg';
+import kcs_footer from '../../assets/kcs_footer.jpg';
 import "./Footer.css";
 import { Link } from "react-router-dom";
 import { Tooltip } from "@mui/material";
@@ -21,7 +22,7 @@ const Footer = () => {
                     {/* Left section: Logo */}
                     <div className="footer-logo">
                         <img
-                            src={kcs_logo}
+                            src={kcs_footer}
                             alt="KCS Logo"
                             title="Click to go to homepage"
                         />

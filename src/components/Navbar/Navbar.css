@@ -2,7 +2,7 @@
     position: sticky;
     top: 0;
     width: 100%;
-    height: 80px;
+    height: 100px;
     background-color: var(--kcs-nav-foot-primary-bg);
     display: flex;
     justify-content: space-between;
@@ -18,9 +18,9 @@
 
 .left-logo img {
     padding: 0 20px;
-    border-radius: 50%;
-    width: 80px;
-    height: 65px;
+    border-radius: 13px !important;
+    width: 85px;
+    height: 85px;
     cursor: pointer;
     /* transition: transform 0.2s ease-in-out; */
 }

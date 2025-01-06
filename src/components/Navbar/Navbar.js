@@ -1,6 +1,6 @@
 import React from "react";
 import "./Navbar.css";
-import header_logo from "../../assets/header_logo.avif"; 
+import kcs_footer from "../../assets/kcs_footer.jpg"; 
 import { Link, useNavigate } from "react-router-dom";
 import { Tooltip } from "@mui/material";
 
@@ -23,7 +23,7 @@ const Navbar = () => {
                 <div className="left-logo">
                     <Tooltip title="Navigate to Home" placement="bottom" arrow>
                         <img
-                            src={header_logo}
+                            src={kcs_footer}
                             alt="KCS Logo"
                             onClick={handleLogoClick}
                         />
