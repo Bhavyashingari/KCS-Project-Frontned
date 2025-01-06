@@ -1,0 +1,77 @@
+.kcs-navbar-div {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 80px;
+    background-color: var(--kcs-nav-foot-primary-bg);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+    z-index: 1000;
+}
+
+.navbar-flex-div {
+    display: flex;
+    align-items: center;
+}
+
+.left-logo img {
+    padding: 0 20px;
+    border-radius: 50%;
+    width: 80px;
+    height: 65px;
+    cursor: pointer;
+    /* transition: transform 0.2s ease-in-out; */
+}
+
+.navbar-links {
+    display: flex;
+    flex: 1; /* Take up remaining space between logo and links */
+    justify-content: flex-end; /* Align links to the right */
+    align-items: center;
+    padding: 0 20px;
+    overflow-x: hidden; /* Prevent horizontal overflow */
+}
+
+.navbar-links ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 20px;
+}
+
+.navbar-links li {
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: capitalize;
+    white-space: nowrap; /* Prevent text from breaking into multiple lines */
+}
+
+.navbar-links a {
+    text-decoration: none;
+    color: var(--kcs-text-color, white);
+    transition: color 0.2s ease-in-out;
+}
+
+.navbar-links a:hover {
+    color: var(--kcs-link-hover-color);
+}
+
+/* Tooltip customization */
+.custom-tooltip {
+    background-color: rgba(0, 0, 0, 0.9);
+    color: white;
+    font-weight: bold;
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-size: 14px;
+}
+
+/* Body adjustments to prevent scrolling issues */
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
