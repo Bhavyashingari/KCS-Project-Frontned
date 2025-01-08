@@ -1,0 +1,79 @@
+.main-dashboard-nav {
+    height: 50px;
+    padding: 0 20px;
+    /* width: 100%; */
+    background-color: var(--kcs-nav-foot-primary-bg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    p {
+        font-size: 24px;
+        color: white;
+        letter-spacing: 0.5rem;
+    }
+}
+
+.account-settings {
+    display: flex;
+    gap: 15px;
+    color: white;
+    align-items: center;
+}
+
+.box-flex{
+    display: flex;
+    width: 100%;
+    padding-bottom: 0;
+    flex-direction: column;
+}
+
+.box-flex-upper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    max-height: 20px;
+    padding: 0 15px;
+    #org-name{
+        letter-spacing: 2px;
+        font-size: 15px !important;
+    }
+    #logout{
+        text-decoration: underline;
+        &:hover{
+            cursor: pointer;
+            color: rgb(255, 121, 121);
+        }
+    }
+    
+}
+
+.account-info-flex{
+    width: 100%;
+    padding: 20px 5px;
+    padding-bottom: 0;
+    display: flex;
+    flex-direction: row;
+    .profile-info{
+        letter-spacing:1px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        padding: 10px;
+
+        #view-account{
+            cursor: pointer;
+            &:hover{
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .account-settings {
+        padding: 0 0px;
+        gap: 5px !important;
+    }
+}

@@ -1,17 +1,14 @@
-import React from "react";
-import { useRoutes, Navigate } from "react-router-dom";
-import Home from "../components/Home/Home"; // Ensure the path is correct based on your project structure.
-import Signup from "../components/Signup/Signup";
-import Dashboard from '../components/Dashboard/Dashboard'
-
-function getCookie(name) {
-  const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-  return match ? match[2] : null;
-}
+import React, { useEffect, useState } from 'react';
+import { useRoutes, Navigate } from 'react-router-dom';
+import authService from '../services/authService';
+import Home from '../components/Home/Home';
+import Signup from '../components/Signup/Signup';
+import Dashboard from '../components/Dashboard/Dashboard';
 
 export default function AppRoutes() {
-  const accessToken = getCookie('access_token');
-  return useRoutes([
+
+  // Define routes
+  const routes = useRoutes([
     {
       path: "/home",
       element: <Home />,
@@ -22,11 +19,13 @@ export default function AppRoutes() {
     },
     {
       path: "/signup",
-      element: <Signup />
+      element: <Signup />,
     },
     {
       path: '/dashboard',
-      element: accessToken ? <Dashboard /> : <Navigate to="/home" replace />
-    }
+      element: <Dashboard/>
+    },
   ]);
+
+  return routes;  // Render the routes after loading user details
 }

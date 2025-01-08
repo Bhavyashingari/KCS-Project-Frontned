@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { TextField, Button, Typography, Box } from "@mui/material";
 import "./Signup.css";
 import Navbar from "../Navbar/Navbar";
-import authService from "../services/authService";
+import authService from "../../services/authService";
 import { useNavigate } from 'react-router-dom';
 import { useToast } from "../Toast/ToastContext";
+import ERROR_CONSTANTS from "../../_utils_/errorConstant";
 
 const Signup = () => {
     const { showToast } = useToast();
@@ -78,13 +79,22 @@ const Signup = () => {
             try {
                 const response = await authService.signup(formData);
                 showToast('User created successfully!', 'success');
+                setFormData({
+                    first_name: "",
+                    last_name: "",
+                    email: "",
+                    password: "",
+                    confirmPassword: "",
+                })
                 setTimeout(() => {
                     navigate('/home');
                 }, 2000);
             } catch (error) {
-                console.error(error);
+                if(error.email){
+                    if(error.email===ERROR_CONSTANTS.USER_EXISTS);
+                    showToast('Email Already Exists. Login or try using diffrent Email', 'error')
+                }
             }
-            // console.log("Signup successful:", formData);
         }
     };
 

@@ -1,0 +1,28 @@
+.main-panel {
+    height: 100vh; /* Ensures the full height */
+    display: flex;
+    justify-content: space-between; /* Space between the panels */
+    flex-direction: row; /* Align children in a row */
+}
+
+.left-pane {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 0;
+    gap: 10px;
+    flex: 0 0 7%;
+    /* background-color: var(--kcs-nav-foot-primary-bg); */
+    background-color: #263238;
+}
+
+.middle-pane {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 0 0 43%; /* 40% for the middle panel */
+}
+
+.right-pane {
+    flex: 0 0 50%; /* 50% for the right panel */
+}
