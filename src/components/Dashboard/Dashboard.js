@@ -37,7 +37,7 @@ const Dashboard = ({ userDetails: initialUserDetails }) => {
   return (
     <>
       <DashboardNavbar userDetails={userDetails} />
-      <DashboardMainPanel/>
+      <DashboardMainPanel userDetails={userDetails}/>
     </>
   );
 };

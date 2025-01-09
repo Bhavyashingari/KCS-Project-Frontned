@@ -43,7 +43,6 @@ const Login = () => {
     if (validateForm()) {
       try {
         const response = await authService.login(formData);
-        console.log("inside")
         navigate(`/dashboard?user_id=${response.user_id}`);
       } catch (error) {
         setErrorMessage('Please try creating a new account first, if not done previously.');

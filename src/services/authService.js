@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { jwtDecode } from "jwt-decode";
+import { DEV_API_URL } from '../_utils_/stringConstants';
 
-const API_URL = "http://127.0.0.1:8000/api/"; // Django API URL
+const API_URL = DEV_API_URL; // Django API URL
 
 // Helper to get the token from cookies
 const getToken = () => {
@@ -37,7 +38,6 @@ const login = async (credentials) => {
 
 // Store user details and tokens
 const storeUserData = (accessToken, refreshToken) => {
-  console.log(accessToken)
   document.cookie = `access_token=${accessToken}; path=/; Secure; SameSite=None; max-age=3600;`; // 1 hour
   document.cookie = `refresh_token=${refreshToken}; path=/; Secure; SameSite=None; max-age=604800;`; // 1 week
 };
@@ -77,6 +77,7 @@ const getUserDetails = () => {
       email: decodedToken.email,
       first_name: decodedToken.first_name,
       last_name: decodedToken.last_name,
+      user_name: decodedToken.username
     };
   }
   return null;
