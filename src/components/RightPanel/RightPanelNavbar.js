@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
 import "./RightPanelNavbar.css";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { IconButton, Menu, MenuItem } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import { IconButton, Menu, MenuItem, Tooltip, Dialog, DialogContent, DialogTitle } from "@mui/material";
 import authService from "../../services/authService";
-import { Tooltip } from "@mui/material";
-
+import UserListModal from "../UserListModal/UserListModal"; // Import the UserListModal component
 
 const RightPanelNavbar = ({ data }) => {
     const [anchorEl, setAnchorEl] = useState(null); // State to control menu visibility
     const open = Boolean(anchorEl);
     const [currentUser, setCurrentUser] = useState(null);
+    const [dialogOpen, setDialogOpen] = useState(false); // State to control the dialog visibility
 
     // Fetch current user details from auth service
     const fetchCurrentUser = async () => {
@@ -25,7 +26,7 @@ const RightPanelNavbar = ({ data }) => {
     // Run the effect only once when the component mounts
     useEffect(() => {
         fetchCurrentUser();
-    }, []);  // Empty dependency array to trigger only once on mount
+    }, []); // Empty dependency array to trigger only once on mount
 
     // Handle menu open
     const handleMenuOpen = (event) => {
@@ -37,36 +38,44 @@ const RightPanelNavbar = ({ data }) => {
         setAnchorEl(null);
     };
 
+    // Open and close dialog
+    const handleDialogOpen = () => setDialogOpen(true);
+    const handleDialogClose = () => setDialogOpen(false);
+
     // Check if user is the admin
     const isUserAdmin = currentUser?.user_id === data?.admin_user;
-
-    console.log("currentUser?.user_id:", currentUser?.user_id); // Log user_id
-    console.log("data?.admin_user:", data?.admin_user); // Log admin_user
 
     return (
         <div className="right-panel-nav-main">
             <div className="room-name">
-                {data && data.room_name !== "No Room" && (
-                    <p>{data.room_name}</p>
-                )}
+                {data && data.room_name !== "No Room" && <p>{data.room_name}</p>}
             </div>
 
             {/* Show button only if room_name is not "No Room" */}
             {data && data.room_name !== "No Room" && (
                 <div className="button">
-                    <Tooltip title={data.room_name + " settings"}>
+                    {/* Add User Button */}
+                    <Tooltip title="Add User to Room">
+                        <IconButton onClick={handleDialogOpen}>
+                            <AddIcon />
+                        </IconButton>
+                    </Tooltip>
+
+                    {/* Room Settings Button */}
+                    <Tooltip title={`${data.room_name} settings`}>
                         <IconButton onClick={handleMenuOpen}>
                             <MoreVertIcon />
                         </IconButton>
                     </Tooltip>
+
                     {/* Menu Component */}
                     <Menu
                         anchorEl={anchorEl}
                         open={open}
                         onClose={handleMenuClose}
                         PaperProps={{
-                            sx: { minWidth: 150 }, // Set minimum width for the menu
-                          }}
+                            sx: { minWidth: 150 },
+                        }}
                         anchorOrigin={{
                             vertical: "bottom",
                             horizontal: "right",
@@ -79,7 +88,7 @@ const RightPanelNavbar = ({ data }) => {
                         <Tooltip title={!isUserAdmin ? "Only Admin Access" : "Settings"}>
                             <MenuItem
                                 onClick={handleMenuClose}
-                                disabled={!isUserAdmin}  // Disable if currentUser is the admin
+                                disabled={!isUserAdmin} // Disable if currentUser is not the admin
                             >
                                 Settings
                             </MenuItem>
@@ -87,6 +96,15 @@ const RightPanelNavbar = ({ data }) => {
                         <MenuItem onClick={handleMenuClose}>Option 2</MenuItem>
                         <MenuItem onClick={handleMenuClose}>Option 3</MenuItem>
                     </Menu>
+
+                    {/* Dialog Component */}
+                    <Dialog open={dialogOpen} onClose={handleDialogClose} maxWidth="sm" fullWidth>
+                        <DialogTitle>Add Users</DialogTitle>
+                        <DialogContent>
+                            {/* Render the UserListModal Component */}
+                            <UserListModal onClose={handleDialogClose} roomDetails={data}/>
+                        </DialogContent>
+                    </Dialog>
                 </div>
             )}
         </div>

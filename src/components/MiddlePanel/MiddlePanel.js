@@ -12,8 +12,11 @@ import {
 import AddNewModal from "../AddNewModal/AddNewModal";
 import middlePanelService from "../../services/middlePanelService";
 import authService from "../../services/authService";
+import { useToast } from "../Toast/ToastContext";
+
 
 const MiddlePanel = ({onSendData}) => {
+  const { showToast } = useToast();
   const [openDialog, setOpenDialog] = useState(false); // State to control the dialog visibility
   const [rooms, setRooms] = useState([]); // Initialize rooms as an empty array
   const [selectedRoom, setSelectedRoom] = useState(null); // Track the selected room

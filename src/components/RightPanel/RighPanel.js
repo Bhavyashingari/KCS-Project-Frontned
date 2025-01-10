@@ -5,7 +5,7 @@ import RightPanelNavbar from "./RightPanelNavbar";
 const RightPanel=({data})=>{
     return(
         <div>
-            <RightPanelNavbar data={data}/>
+            <RightPanelNavbar data={data} />
         </div>
     )
 };

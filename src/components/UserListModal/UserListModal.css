@@ -1,0 +1,117 @@
+/* UserListModal.css */
+
+/* Container styles */
+.user-list-modal {
+    width: 400px;
+    max-width: 90%;
+    background: var(--modal-bg, #ffffff); /* Use a variable for theme support */
+    color: var(--modal-text-color, #333333); /* Text color based on theme */
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 0 auto;
+    font-family: 'Roboto', sans-serif;
+    transition: all 0.3s ease-in-out;
+}
+
+/* User list container */
+.user-list {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid var(--border-color, #e0e0e0);
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 20px;
+    background: var(--user-list-bg, #f9f9f9);
+}
+
+.user-common-div{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 14px !important;
+
+    p{
+        width: 100% !important;
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: space-around;
+    }
+
+    span{
+        font-weight: bold !important;
+        font-size: 15px !important;
+    }
+}
+
+/* User item */
+.user-item {
+    padding: 10px 15px;
+    margin: 5px 0;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--user-text-color, #333333);
+    background: var(--user-bg, #ffffff);
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+/* Hover effect */
+.user-item:hover {
+    background: var(--hover-bg, #f1f1f1);
+    transform: scale(1.02);
+}
+
+/* Selected state */
+.user-item.selected {
+    background: var(--selected-bg, #6200ea); /* Use a primary accent color */
+    color: rgb(196, 151, 6) !important;
+    font-weight: bold;
+}
+
+/* Submit button */
+.submit-button {
+    width: 100%;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    background: var(--submit-bg, #6200ea); /* Use a primary accent color */
+    color: var(--submit-text-color, #ffffff);
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.submit-button:disabled {
+    background: var(--submit-disabled-bg, #cccccc);
+    color: var(--submit-disabled-text-color, #666666);
+    cursor: not-allowed;
+}
+
+/* Hover effect for active button */
+.submit-button:not(:disabled):hover {
+    background: var(--submit-hover-bg, #4500b0);
+    transform: scale(1.02);
+}
+
+/* Scrollbar styling */
+.user-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.user-list::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb, #cccccc);
+    border-radius: 8px;
+}
+
+.user-list::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover, #aaaaaa);
+}
+
+.user-list::-webkit-scrollbar-track {
+    background: var(--scrollbar-track, #f0f0f0);
+}
