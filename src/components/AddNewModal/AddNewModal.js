@@ -2,13 +2,15 @@ import React, { useState, useEffect } from "react";
 import { Dialog, DialogActions, DialogContent, DialogTitle, Button, TextField, Checkbox, FormControlLabel } from "@mui/material";
 import authService from "../../services/authService";
 import middlePanelService from "../../services/middlePanelService";
+import { useToast } from "../Toast/ToastContext";
 
 const AddNewModal = ({ open, handleClose }) => {
+  const { showToast } = useToast();
   const [formData, setFormData] = useState({
-    roomName: '',
+    room_name: '',
     description: '',
-    adminId: '',  // Initially empty
-    isBroadcast: false,  // Default to false
+    admin_user: '',  // Initially empty
+    is_broadcast: false,  // Default to false
   });
 
   const [error, setError] = useState('');
@@ -22,7 +24,7 @@ const AddNewModal = ({ open, handleClose }) => {
           if (userDetails) {
             setFormData((prevData) => ({
               ...prevData,
-              adminId: userDetails.user_name,  // Pre-populate admin field
+              admin_user: userDetails.user_name,  // Pre-populate admin field
             }));
           }
         } catch (error) {
@@ -45,13 +47,17 @@ const AddNewModal = ({ open, handleClose }) => {
   const handleCheckboxChange = (e) => {
     setFormData({
       ...formData,
-      isBroadcast: e.target.checked,
+      is_broadcast: e.target.checked,
     });
   };
 
   const validateForm = () => {
-    if (formData.roomName.trim() === '') {
+    if (formData.room_name.trim() === '') {
       setError('Room Name cannot be empty.');
+      return false;
+    }
+    if (formData.room_name.trim().toLowerCase() === 'no room') {
+      setError(`Room Cannot have a name "${formData.room_name}"`)
       return false;
     }
     setError('');
@@ -61,8 +67,14 @@ const AddNewModal = ({ open, handleClose }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
-      const response=await middlePanelService.createNewRoom(formData);
-      handleClose();  // Close the dialog after submission
+      try {
+        const response = await middlePanelService.createNewRoom(formData);
+        console.log(response)
+        handleClose();  // Close the dialog after submission
+        window.location.reload();
+      } catch (error) {
+        showToast(`Err...${error.room_name}`, 'error');
+      }
     }
   };
 
@@ -74,13 +86,13 @@ const AddNewModal = ({ open, handleClose }) => {
         <TextField
           autoFocus
           margin="dense"
-          id="roomName"
+          id="room_name"
           label="Room Name"
           type="text"
           fullWidth
           variant="outlined"
-          name="roomName"
-          value={formData.roomName}
+          name="room_name"
+          value={formData.room_name}
           onChange={handleInputChange}
           error={!!error}  // Show error if room name is empty
           helperText={error}  // Display error message
@@ -102,13 +114,13 @@ const AddNewModal = ({ open, handleClose }) => {
         {/* Admin (disabled, pre-filled with current user ID) */}
         <TextField
           margin="dense"
-          id="adminId"
+          id="admin_user"
           label="Admin"
           type="text"
           fullWidth
           variant="outlined"
-          name="adminId"
-          value={formData.adminId}
+          name="admin_user"
+          value={formData.admin_user}
           disabled
         />
 
@@ -116,9 +128,9 @@ const AddNewModal = ({ open, handleClose }) => {
         <FormControlLabel
           control={
             <Checkbox
-              checked={formData.isBroadcast}
+              checked={formData.is_broadcast}
               onChange={handleCheckboxChange}
-              name="isBroadcast"
+              name="is_broadcast"
               color="primary"
             />
           }

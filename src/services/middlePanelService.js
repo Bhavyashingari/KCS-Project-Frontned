@@ -14,6 +14,7 @@ const axiosInstance = axios.create({
   axiosInstance.interceptors.request.use((config) => {
     const token = authService.getToken();
     if (token) {
+      console.log(config)
       config.headers['Authorization'] = `Bearer ${token}`; // Add token to the headers
     }
     return config;
@@ -24,13 +25,26 @@ const axiosInstance = axios.create({
 
 const createNewRoom= async(roomDetails)=>{
     try{
-        const response= await axiosInstance.post('rooms/create/', roomDetails);
+        const response= await axios.post(`${API_URL}rooms/create/`, roomDetails);
         return response.data; 
     }catch(error){
         throw error.response.data;
     }
 }
 
+const getUserRooms=async(user_id)=>{
+  try{
+    const response =await axios.get(`${API_URL}user/rooms`, {
+      params: { user_id: user_id },
+    });
+    console.log(response.data)
+    return response.data;
+  }catch(error){
+    throw error.response.data;
+  }
+}
+
 export default {
-    createNewRoom
+    createNewRoom,
+    getUserRooms
 };

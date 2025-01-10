@@ -30,7 +30,7 @@
     flex: 1; /* Take up remaining space between logo and links */
     justify-content: flex-end; /* Align links to the right */
     align-items: center;
-    padding: 0 20px;
+    padding: 0 40px;
     overflow-x: hidden; /* Prevent horizontal overflow */
 }
 

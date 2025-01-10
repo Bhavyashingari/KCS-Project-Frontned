@@ -45,6 +45,7 @@ const Login = () => {
         const response = await authService.login(formData);
         navigate(`/dashboard?user_id=${response.user_id}`);
       } catch (error) {
+        console.log(error);
         setErrorMessage('Please try creating a new account first, if not done previously.');
         showToast('Incorrect Username or Password', 'error');
       }
