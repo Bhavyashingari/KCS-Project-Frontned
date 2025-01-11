@@ -55,12 +55,13 @@ const RightPanelNavbar = ({ data }) => {
             {data && data.room_name !== "No Room" && (
                 <div className="button">
                     {/* Add User Button */}
-                    <Tooltip title="Add User to Room">
-                        <IconButton onClick={handleDialogOpen}>
-                            <AddIcon />
-                        </IconButton>
-                    </Tooltip>
-
+                    {data.admin_user == currentUser.user_id && (
+                        <Tooltip title="Add User to Room">
+                            <IconButton onClick={handleDialogOpen}>
+                                <AddIcon />
+                            </IconButton>
+                        </Tooltip>
+                    )}
                     {/* Room Settings Button */}
                     <Tooltip title={`${data.room_name} settings`}>
                         <IconButton onClick={handleMenuOpen}>
@@ -85,7 +86,7 @@ const RightPanelNavbar = ({ data }) => {
                             horizontal: "right",
                         }}
                     >
-                        <Tooltip title={!isUserAdmin ? "Only Admin Access" : "Settings"}>
+                        <Tooltip title={isUserAdmin?"Settings":"Only Admin can access Settings"}>
                             <MenuItem
                                 onClick={handleMenuClose}
                                 disabled={!isUserAdmin} // Disable if currentUser is not the admin
@@ -102,7 +103,7 @@ const RightPanelNavbar = ({ data }) => {
                         <DialogTitle>Add Users</DialogTitle>
                         <DialogContent>
                             {/* Render the UserListModal Component */}
-                            <UserListModal onClose={handleDialogClose} roomDetails={data}/>
+                            <UserListModal onClose={handleDialogClose} roomDetails={data} />
                         </DialogContent>
                     </Dialog>
                 </div>

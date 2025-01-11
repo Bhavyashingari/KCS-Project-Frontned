@@ -1,0 +1,45 @@
+    .add-message {
+    position: fixed;
+    width: 100%;
+    max-width: 100%;
+    background-color: white;
+    bottom: 0; /* Aligns to the bottom of the parent container */
+    height: 120px;
+    border-top: 1px solid #ddd; /* Optional: Adds a subtle separator */
+    display: flex; /* Optional: If you plan to align content inside */
+    align-items: center; /* Centers content vertically */
+    
+}
+
+.message-input {
+    flex: 0.6;
+    resize: none; /* Prevent manual resizing */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 8px;
+    margin-left: 10px;
+    font-size: 16px;
+    outline: none;
+    transition: all 0.3s ease; /* Smooth transition for focus effect */
+}
+
+.message-input:focus {
+    border-color: #007bff; /* Highlight border on focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Optional shadow on focus */
+}
+
+.send-button {
+    margin-left: 10px;
+    padding: 10px 50px;
+    background-color: var(--kcs-main-dark);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.send-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}

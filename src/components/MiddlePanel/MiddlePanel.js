@@ -8,6 +8,7 @@ import {
   ListItemText,
   ListItemButton,
   Typography,
+  Tooltip,
 } from "@mui/material";
 import AddNewModal from "../AddNewModal/AddNewModal";
 import middlePanelService from "../../services/middlePanelService";
@@ -15,7 +16,7 @@ import authService from "../../services/authService";
 import { useToast } from "../Toast/ToastContext";
 
 
-const MiddlePanel = ({onSendData}) => {
+const MiddlePanel = ({ onSendData }) => {
   const { showToast } = useToast();
   const [openDialog, setOpenDialog] = useState(false); // State to control the dialog visibility
   const [rooms, setRooms] = useState([]); // Initialize rooms as an empty array
@@ -24,12 +25,12 @@ const MiddlePanel = ({onSendData}) => {
   // Function to format timestamp
   const formatTimestamp = (timestamp) => {
     const date = new Date(timestamp);
-    const options = { 
-      year: "numeric", 
-      month: "2-digit", 
-      day: "2-digit", 
-      hour: "2-digit", 
-      minute: "2-digit" 
+    const options = {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit"
     };
     return date.toLocaleString("en-GB", options).replace(",", "");
   };
@@ -73,7 +74,7 @@ const MiddlePanel = ({onSendData}) => {
   // Handle click event on a room
   const handleRoomClick = (room) => {
     setSelectedRoom(room); // Set the selected room
-    if(onSendData){
+    if (onSendData) {
       onSendData(room);
     }
   };
@@ -107,39 +108,44 @@ const MiddlePanel = ({onSendData}) => {
       <List className="user-groups">
         {rooms.length > 0 ? (
           rooms.map((room, index) => (
-            <ListItemButton
-              className={`group-item ${
-                selectedRoom === room ? "selected" : ""
-              }`} // Add 'selected' class to the clicked room
-              key={index}
-              onClick={() => handleRoomClick(room)} // Handle click event
-              selected={selectedRoom === room} // Apply 'selected' prop from ListItemButton
-              sx={{
-                marginBottom: "10px",
-                height: "100px",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "flex-start",
-                justifyContent: "space-between",
-                padding: "16px",
-                boxShadow:
-                  selectedRoom === room
-                    ? "0px 2px 6px rgba(0, 0, 0, 0.2)"
-                    : "none",
-              }}
-            >
-              <Typography variant="h6" sx={{ fontWeight: "bold", fontSize: '16px' }}>
-                {room.room_name}
-              </Typography>
-              <Typography
-                variant="body2"
-                sx={{ color: "gray", fontSize: "11px" }}
+            <Tooltip title={room.is_broadcast? `${room.room_name} (Only Admin)`: `${room.room_name}`} placement="right">
+              <ListItemButton
+                className={`group-item ${selectedRoom === room ? "selected" : ""
+                  }`} // Add 'selected' class to the clicked room
+                key={index}
+                onClick={() => handleRoomClick(room)} // Handle click event
+                selected={selectedRoom === room} // Apply 'selected' prop from ListItemButton
+                sx={{
+                  marginBottom: "10px",
+                  height: "100px",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "flex-start",
+                  justifyContent: "space-between",
+                  padding: "16px",
+                  boxShadow:
+                    selectedRoom === room
+                      ? "0px 2px 6px rgba(0, 0, 0, 0.2)"
+                      : "none",
+                }}
               >
-                {room.created_at
-                  ? formatTimestamp(room.created_at)
-                  : "Unknown date"}
-              </Typography>
-            </ListItemButton>
+                <Typography variant="h6" sx={{ fontWeight: "bold", fontSize: '16px' }}>
+                  {room.room_name}
+                  {room.is_broadcast && (
+                    <span style={{ fontSize: '11px', color: 'gray', marginLeft: '8px' }}>(Broadcast)</span>
+                  )}
+                </Typography>
+
+                <Typography
+                  variant="body2"
+                  sx={{ color: "gray", fontSize: "11px" }}
+                >
+                  {room.created_at
+                    ? formatTimestamp(room.created_at)
+                    : "Unknown date"}
+                </Typography>
+              </ListItemButton>
+            </Tooltip>
           ))
         ) : (
           <ListItem className="group-item">

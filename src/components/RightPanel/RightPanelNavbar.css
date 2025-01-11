@@ -1,5 +1,5 @@
 .right-panel-nav-main{
-    position: sticky;
+    position: absolute;
     top: 0;
     max-height: 55px;
     background-color: #ddbd63;
@@ -13,7 +13,7 @@
 
 
 .room-name, .button{
-    padding: 0 80px;
+    padding: 0 60px;
     p{
         color: white;
         font-size: 20px;

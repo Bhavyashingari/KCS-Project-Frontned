@@ -1,0 +1,12 @@
+.right-panel {
+    max-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    position: relative; /* Required for child positioning */
+}
+
+.content-area{
+    margin-top: 60px;
+}
+

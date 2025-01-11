@@ -18,7 +18,7 @@ const UserListModal = ({ roomDetails }) => {
             const getCurrentUser = await authService.getUserDetails();
             const users = await rightPanelService.getUsersList();
             console.log(users);
-            
+
             if (Array.isArray(users)) {
                 // Filter out the current user based on user_id
                 const filteredUsers = users.filter(user => user.id !== getCurrentUser.user_id);
@@ -48,8 +48,17 @@ const UserListModal = ({ roomDetails }) => {
     };
 
     // Handle submit
-    const handleSubmit = () => {
-        console.log("Selected Users:", selectedUsers);
+    const handleSubmit = async () => {
+        const AddUserObject = {};
+        AddUserObject['room_id'] = roomDetails.room_id;
+        AddUserObject['user_ids'] = selectedUsers;
+        try {
+            const response = await rightPanelService.addUsersToRoom(AddUserObject);
+            console.log(response)
+        }catch(error){
+            showToast(`Error while adding user to ${roomDetails.room_name}`, 'error')
+        }
+
         // Perform any action with the selected user IDs, e.g., API call
         showToast("Users selected successfully!", "success");
     };
@@ -66,7 +75,7 @@ const UserListModal = ({ roomDetails }) => {
                             className={`user-common-div user-item ${selectedUsers.includes(user.id) ? "selected" : ""}`}
                             onClick={() => handleUserSelect(user.id)}
                         >
-                            <p>Name: <span>{toTitleCase(user.first_name+" "+user.last_name || "Unknown User")}</span></p>
+                            <p>Name: <span>{toTitleCase(user.first_name + " " + user.last_name || "Unknown User")}</span></p>
                             <p>Email: <span>{user.email}</span></p>
                             <p>Username: <span>{user.username}</span></p>
                         </div>

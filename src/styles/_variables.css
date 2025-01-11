@@ -1,4 +1,5 @@
 :root{
+    --kcs-main-dark: rgb(10, 45, 95);
     --kcs-nav-foot-primary-bg: rgb(10, 45, 95);
     --kcs-link-hover-color: rgb(165, 165, 165);
     --modal-bg: #ffffff;
