@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { jwtDecode } from "jwt-decode";
 import { DEV_API_URL } from '../_utils_/stringConstants';
+import msalInstance from './msalConfig'; // Import msalInstance from msalConfig.js
 
 const API_URL = DEV_API_URL; // Django API URL
 
@@ -25,15 +26,27 @@ const signup = async (userData) => {
   }
 };
 
-// Login method
-const login = async (credentials) => {
+// Azure AD login method
+const azureADLogin = async () => {
   try {
-    const response = await axios.post(`${API_URL}login/`, credentials);
-    storeUserData(response.data.access_token, response.data.refresh_token);
-    return response.data;
+    // Trigger Azure AD login using MSAL
+    const loginResponse = await msalInstance.loginPopup({
+      scopes: ["User.Read"], // Add other necessary scopes
+    });
+
+    // Store the access token in cookies
+    storeUserData(loginResponse.accessToken, "");
+
+    return loginResponse; // You can return the login response or just the token if needed
   } catch (error) {
-    throw error.response.data;
+    throw error;  // Handle login error
   }
+};
+
+// Login method (now calls azureADLogin)
+const login = async (credentials) => {
+  // Call the Azure AD login flow
+  return azureADLogin();
 };
 
 // Store user details and tokens
@@ -46,9 +59,8 @@ const storeUserData = (accessToken, refreshToken) => {
 const logout = (navigate, from) => {
   removeToken();
   if (from && from === 'new') {
-    navigate("/signup")
-  }
-  else {
+    navigate("/signup");
+  } else {
     navigate("/home");
   }
 };
@@ -77,7 +89,7 @@ const getUserDetails = () => {
       email: decodedToken.email,
       first_name: decodedToken.first_name,
       last_name: decodedToken.last_name,
-      user_name: decodedToken.username
+      user_name: decodedToken.username,
     };
   }
   return null;
