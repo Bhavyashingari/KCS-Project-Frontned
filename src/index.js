@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import { MsalProvider } from '@azure/msal-react';
-import msalInstance from 'msalConfig';  
+import msalInstance from './msalconfig';  
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(

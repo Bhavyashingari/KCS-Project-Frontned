@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { TextField, Button, Typography, Box } from "@mui/material";
 import { useMsal } from '@azure/msal-react';  // Import MSAL hooks
-import { useToast } from "../Toast/ToastContext";  // Assuming you have a toast context for notifications
+import { useToast } from "../Toast/ToastContext";
 import "./Login.css";
+
 
 const Login = () => {
   const { showToast } = useToast();

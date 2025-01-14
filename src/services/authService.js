@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { jwtDecode } from "jwt-decode";
 import { DEV_API_URL } from '../_utils_/stringConstants';
-import msalInstance from './msalConfig'; // Import msalInstance from msalConfig.js
+import msalInstance from '../msalconfig'; // Import msalInstance from msalConfig.js
 
 const API_URL = DEV_API_URL; // Django API URL
 
