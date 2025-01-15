@@ -1,18 +1,20 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import { createRoot } from 'react-dom/client';
+import { PublicClientApplication } from '@azure/msal-browser';
 import { MsalProvider } from '@azure/msal-react';
-import msalInstance from './msalconfig';  
-import reportWebVitals from './reportWebVitals';
+import App from './App';
+import msalConfig from './msalconfig';
 
-ReactDOM.render(
-  <MsalProvider instance={msalInstance}>
-    <React.StrictMode>
+// Initialize MSAL properly
+const msalInstance = new PublicClientApplication(msalConfig);
+
+const container = document.getElementById('root');
+const root = createRoot(container);
+
+root.render(
+  <React.StrictMode>
+    <MsalProvider instance={msalInstance}>
       <App />
-    </React.StrictMode>
-  </MsalProvider>,
-  document.getElementById('root')
+    </MsalProvider>
+  </React.StrictMode>
 );
-
-reportWebVitals();
